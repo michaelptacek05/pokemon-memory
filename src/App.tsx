@@ -1,20 +1,29 @@
-import usePokemon from "./assets/hooks/usePokemon";
-import GameBoard from "./assets/components/Gameboard";
+import usePokemon from "./hooks/usePokemon";
+import GameBoard from "./components/Gameboard";
 import { useState } from "react";
 
 export default function App() {
+    /* debugovací nástroj, když napíšu parametr debugCard=True do prohlížeče, tak stačí kliknout na kartu pro výhru */
+    const searchParams = new URLSearchParams(window.location.search);
+    const isDebug = searchParams.get("debugCard") === "True";
+    const WIN_SCORE = isDebug ? 1 : 12; 
+
     const { cards, shuffleCards, loading } = usePokemon();
     const [clickedIds, setClickedIds] = useState<number[]>([]);
     const [bestScore, setBestScore] = useState(0);
 
     if (loading) {
-        return <div className="loading">Chytám pokémony</div>;
+        return(
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        );
     }
 
-    if (clickedIds.length === 12) {
+    if (clickedIds.length === WIN_SCORE) {
         return(
-          <div>
-            <p>Vyhrál jsi</p>
+          <div className="poke-border-1">
+            <p>Vyhrál jsi!!</p>
           </div>
         );
     }
@@ -34,10 +43,10 @@ export default function App() {
     console.log(cards);
 
     return (
-        <div>
+        <div className="background">
             <h1>Pokemon Cards game</h1>
 
-            <div className="score">
+            <div className="score poke-border-1">
                 <p>Skore: {clickedIds.length}</p>
                 <p>Nejlepší skore: {bestScore}</p>
             </div>

@@ -11,8 +11,8 @@ export default function Card({ id, name, image, onClick }: CardProps) {
             className="card"
             onClick={() => onClick(id)}
         >
-            <img src={image} alt={name} />
-            <p>{name}</p>
+            <img src={image} alt={name} style={{opacity:"100%"}} />
+            <p style={{opacity:"100%"}}>{name}</p>
         </div>
     );
 }
