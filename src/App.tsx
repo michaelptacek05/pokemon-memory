@@ -14,7 +14,7 @@ export default function App() {
     if (clickedIds.length === 12) {
         return(
           <div>
-            <p>Prohrál jsi</p>
+            <p>Vyhrál jsi</p>
           </div>
         );
     }
