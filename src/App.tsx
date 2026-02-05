@@ -1,12 +1,16 @@
 import usePokemon from "./hooks/usePokemon";
 import GameBoard from "./components/Gameboard";
 import { useState } from "react";
+import { useWindowSize } from 'react-use';
+import ReactConfetti from "react-confetti";
 
 export default function App() {
     /* debugovací nástroj, když napíšu parametr debugCard=True do prohlížeče, tak stačí kliknout na kartu pro výhru */
     const searchParams = new URLSearchParams(window.location.search);
     const isDebug = searchParams.get("debugCard") === "True";
     const WIN_SCORE = isDebug ? 1 : 12; 
+
+    const { width, height } = useWindowSize();
 
     const { cards, shuffleCards, loading } = usePokemon();
     const [clickedIds, setClickedIds] = useState<number[]>([]);
@@ -24,6 +28,7 @@ export default function App() {
         return(
           <div className="poke-border-1">
             <p>Vyhrál jsi!!</p>
+            <ReactConfetti width={width} height={height} />
           </div>
         );
     }
