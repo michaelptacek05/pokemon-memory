@@ -11,7 +11,7 @@ This game was created according to the assignment from [The Odin Project](https:
 * React
 * Vite
 * SCSS
-* [Pokemon Rest API](https://pokeapi.co/)
+* [Pokemon REST API](https://pokeapi.co/)
 
 ## How to install and run this project
 Make sure you have [Node.js](https://nodejs.org/) installed.
