@@ -1,47 +1,26 @@
+// usePokemon.ts
 import { useState, useEffect } from "react";
-
-interface PokemonCard {
-    id: number;
-    name: string;
-    image: string;
-}
+import { fetchPokemonData } from "../api/apiPokemon"; 
+import type { PokemonCard } from "../api/apiPokemon"; 
 
 export default function usePokemon() {
-    const NUMBER_POKEMON: number = 151; // Počet pokémonů z první generace
     const [cards, setCards] = useState<PokemonCard[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchPokemon = async (amount: number) => {
+    const loadCards = async (amount: number) => {
         setLoading(true);
-        const uniqueIds = new Set<number>();
-
-        while (uniqueIds.size < amount) {
-            const randomId = Math.floor(Math.random() * NUMBER_POKEMON) + 1;
-            uniqueIds.add(randomId);
+        try {
+            const data = await fetchPokemonData(amount);
+            setCards(data);
+        } catch (error) {
+            console.error("Failed to fetch pokemon", error);
+        } finally {
+            setLoading(false);
         }
-
-        const pokemonIds = Array.from(uniqueIds);
-
-        const promises = pokemonIds.map((id) =>
-            fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`).then((res) =>
-                res.json(),
-            ),
-        );
-
-        const responses = await Promise.all(promises);
-
-        const pokemonData: PokemonCard[] = responses.map((data) => ({
-            id: data.id,
-            name: data.name,
-            image: data.sprites.front_default,
-        }));
-
-        setCards(pokemonData);
-        setLoading(false);
     };
 
     useEffect(() => {
-        fetchPokemon(12);
+        loadCards(12);
     }, []);
 
     const shuffleCards = () => {
