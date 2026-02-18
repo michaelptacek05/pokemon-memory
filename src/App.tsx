@@ -1,5 +1,5 @@
 
-import GameLogic from "./components/Game";
+import GameLogic from "./components/GameLogic";
 
 export default function App() {
     return (
