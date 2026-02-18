@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useWindowSize } from 'react-use';
 import ReactConfetti from "react-confetti";
 
-export default function Gamelogic() {
+export default function GameLogic() {
     /* debugovací nástroj, když napíšu parametr debugCard=True do prohlížeče, tak stačí kliknout na kartu pro výhru */
     const searchParams = new URLSearchParams(window.location.search);
     const isDebug = searchParams.get("debugCard") === "True";
